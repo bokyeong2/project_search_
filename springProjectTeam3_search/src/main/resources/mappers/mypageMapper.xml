@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="mapper.mypageMapper">
+	
+	<select id="orderinfoSelectAll" resultType="domain.OrderInfoDTO">
+		
+		select orderInfo_number, orderInfo_date, orderInfo_productName, orderInfo_price, orderInfo_count, orderInfo_status from orderinfo where user_id = #{user_id};
+	</select>
+	
+
+	<select id="userCheck" resultType="domain.UserDTO">
+		select * from user where user_id=#{user_id} and user_pwd=#{user_pwd}
+	</select>
+	
+	<select id="userInfoSelect" resultType="domain.UserDTO">
+		select * from user where user_id=#{user_id}
+	</select>
+	
+	<select id="petInfoSelect" resultType="domain.PetDTO">
+		select * from pet where user_id=#{user_id}
+	</select>
+	
+	<select id="mypetDetailView" resultType="domain.PetDTO">
+		select * from pet where pet_number=#{pet_number}
+	</select>
+	
+	<update id="userDelete">
+		UPDATE user SET user_deleteDate=#{user_deleteDate}, user_deleteCheck='Y' WHERE user_id=#{user_id};
+	</update>
+	
+	<select id="myBoardSelectAll1" resultType="domain.BoardDTO">
+		select * from board where user_id = #{user_id} and boardCategory_number = 1;
+	</select>
+	<select id="myBoardSelectAll2" resultType="domain.BoardDTO">
+		select * from board where user_id = #{user_id} and boardCategory_number = 2;
+	</select>
+	<select id="myBoardSelectAll3" resultType="domain.BoardDTO">
+		select * from board where user_id = #{user_id} and boardCategory_number = 3;
+	</select>
+	<select id="myBoardSelectAll4" resultType="domain.BoardDTO">
+		select * from board where user_id = #{user_id} and boardCategory_number = 4;
+	</select>
+	
+	<update id="userUpdate">
+		UPDATE user SET user_pwd=#{user_pwd}, user_name=#{user_name}, user_email=#{user_email}, user_phone=#{user_phone} WHERE user_id=#{user_id};
+	</update>
+	
+	<insert id="mypetAddInsert">
+		insert into pet(user_id, pet_type, pet_gender, pet_breed, pet_name, pet_birth, pet_weight, pet_addinfo, pet_imagepath)
+		 values(#{user_id},#{pet_type},#{pet_gender},#{pet_breed},#{pet_name},#{pet_birth},#{pet_weight},#{pet_addinfo},#{pet_imagepath});
+	</insert>
+	
+	<delete id="mypetDelete">
+		delete from pet where pet_number = #{pet_number}
+	</delete>
+	
+	<update id="mypetUpdate">
+		update pet set pet_type=#{pet_type}, pet_gender=#{pet_gender}, pet_breed=#{pet_breed}, pet_name=#{pet_name}, pet_birth=#{pet_birth}, pet_weight=#{pet_weight}, pet_addinfo=#{pet_addinfo}, pet_imagepath=#{pet_imagepath} where pet_number=#{pet_number};
+	</update>
+	
+</mapper>
